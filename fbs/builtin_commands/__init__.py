@@ -36,15 +36,21 @@ def startproject():
     app = prompt_for_value('App name', default='MyApp')
     user = getuser().title()
     author = prompt_for_value('Author', default=user)
-    has_pyqt = _has_module('PyQt5')
-    has_pyside = _has_module('PySide2')
-    if has_pyqt and not has_pyside:
+    has_pyqt5 = _has_module('PyQt5')
+    has_pyqt6 = _has_module('PyQt6')
+    has_pyside2 = _has_module('PySide2')
+    has_pyside6 = _has_module('PySide6')
+    if has_pyqt5 and not has_pyside2 and not has_pyqt6 and not has_pyside6:
         python_bindings = 'PyQt5'
-    elif not has_pyqt and has_pyside:
+    elif has_pyqt6 and not has_pyside2 and not has_pyqt5 and not has_pyside6:
+        python_bindings = 'PyQt6'
+    elif has_pyside2 and not has_pyside6 and not has_pyqt5 and not has_pyqt6:
         python_bindings = 'PySide2'
+    elif has_pyside6 and not has_pyside2 and not has_pyqt5 and not has_pyqt6:
+        python_bindings = 'PySide6'
     else:
         python_bindings = prompt_for_value(
-            'Qt bindings', choices=('PyQt5', 'PySide2'), default='PyQt5'
+            'Qt bindings', choices=('PyQt5', 'PyQt6', 'PySide2', 'PySide6'), default='PyQt5'
         )
     eg_bundle_id = 'com.%s.%s' % (
         author.lower().split()[0], ''.join(app.lower().split())
@@ -81,9 +87,9 @@ def run():
     Run your app from source
     """
     require_existing_project()
-    if not _has_module('PyQt5') and not _has_module('PySide2'):
+    if not _has_module('PyQt5') and not _has_module('PySide2') and not _has_module('PyQt6') and not _has_module('PySide6'):
         raise FbsError(
-            "Couldn't find PyQt5 or PySide2. Maybe you need to:\n"
+            "Couldn't find PyQt5 or PySide2 or PyQt6 or PySide6. Maybe you need to:\n"
             "    pip install PyQt5==5.9.2 or\n"
             "    pip install PySide2==5.12.2"
         )
