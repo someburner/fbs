@@ -39,7 +39,7 @@ setup(
             'fbs/installer/mac', 'create-dmg'
         )
     },
-    install_requires=['PyInstaller==4.9'],
+    # install_requires=['PyInstaller==4.9'],
     extras_require={
         # Also update requirements.txt when you change this:
         'licensing': ['rsa>=3.4.2'],
@@ -61,6 +61,8 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
 
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Python Modules'
