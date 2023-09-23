@@ -26,7 +26,8 @@ def freeze_mac(debug=False):
         ])
     run_pyinstaller(args, debug)
     _remove_unwanted_pyinstaller_files()
-    _fix_sparkle_delta_updates()
+    # NOTE: This has been fixed in later PyInstaller versions (e.g. 6.0.0)
+    # _fix_sparkle_delta_updates()
     _generate_resources()
 
 def _generate_iconset():
