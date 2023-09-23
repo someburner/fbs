@@ -11,11 +11,6 @@ def freeze_mac(debug=False):
         _generate_iconset()
         run(['iconutil', '-c', 'icns', path('target/Icon.iconset')], check=True)
     args = []
-    # args.extend(['--hidden-import', 'PyQt6'])
-    # args.extend(['--hidden-import', 'PyQt6.sip'])
-    # args.extend(['--hidden-import', 'PyQt6.QtWidgets'])
-    # args.extend(['--hidden-import', 'PyQt6.QtGui'])
-    # args.extend(['--hidden-import', 'PyQt6.QtCore'])
     if not (debug or SETTINGS['show_console_window']):
         args.append('--windowed')
     args.extend(['--icon', path('target/Icon.icns')])
@@ -40,6 +35,7 @@ def _generate_iconset():
         copy(icon_path, path('target/Icon.iconset/' + dest_name))
 
 def _remove_unwanted_pyinstaller_files():
+    # TODO/JRH: revisit this
     # for unwanted in ('include', 'lib', 'lib2to3'):
     for unwanted in ('lib2to3'):
         try:
@@ -51,6 +47,7 @@ def _remove_unwanted_pyinstaller_files():
         except FileNotFoundError:
             pass
 
+# NOTE/JRH: this is broken and maybe no longer required
 def _fix_sparkle_delta_updates():
     # Sparkle's Delta Updates mechanism does not support signed non-Mach-O files
     # in Contents/MacOS. base_library.zip, which is created by PyInstaller,
