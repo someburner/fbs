@@ -20,5 +20,5 @@ def freeze_linux(debug=False):
 
 def remove_shared_libraries(*filename_patterns):
     for pattern in filename_patterns:
-        for file_path in glob(path('${freeze_dir}/' + pattern)):
+        for file_path in glob(path('${freeze_dir}/_internal/' + pattern)):
             remove(file_path)
